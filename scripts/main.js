@@ -1,7 +1,7 @@
-// main.js - bootstraps app
+// main.js — Campus Life Planner
 import { setupUI } from './ui.js';
 
-// load seed.json dynamically (it's local file), fallback to embedded seed if fetch fails
+// Load seed.json dynamically (local file)
 async function loadSeed() {
   try {
     const resp = await fetch('seed.json');
@@ -14,11 +14,12 @@ async function loadSeed() {
   }
 }
 
+// ✅ One unified DOMContentLoaded block
 document.addEventListener('DOMContentLoaded', async () => {
   const seed = await loadSeed();
   setupUI(seed);
 
-  // keyboard focus outline improvement: only show on keyboard nav
+  // Keyboard focus outline improvement
   (function () {
     const handleMouse = () => document.body.classList.add('using-mouse');
     const handleKey = (e) => {
@@ -28,16 +29,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.addEventListener('keydown', handleKey);
   })();
 
-  // 🩷 Dashboard Card Navigation
-  const dashButtons = document.querySelectorAll(".dash-card");
-
-  dashButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const targetPage = btn.dataset.link; // changed from data-target to data-link
-      if (targetPage) {
-        window.location.href = targetPage; // go to the linked page
+  // 🩷 Dashboard Button Navigation (scrolls to section)
+  document.querySelectorAll('.dash-card').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.target;
+      const section = document.querySelector(target);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
-        console.warn("No link found for:", btn);
+        console.warn('No target found for:', target);
       }
     });
   });
