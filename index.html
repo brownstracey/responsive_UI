@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Campus Life Planner</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+</head>
+<body class="theme">
+  <header> <h1>Campus Life Planner</h1>
+    <p>Small planner for students</p>
+     <nav> 
+     <nav aria-label="Primary navigation"> 
+      <ul class="nav"> 
+        <li><a href="#about">About</a></li> 
+        <li><a href="#dashboard">Dashboard</a></li> 
+        <li><a href="#records">Records</a></li> 
+        <li><a href="#add">Add</a></li> 
+        <li><a href="#settings">Settings</a></li> 
+      </ul> 
+    </nav> 
+  </div> 
+</header>
+
+  <main id="main" tabindex="-1">
+     <section id="about" class="panel" aria-labelledby="about-h">
+      <div class="container">
+        <h2 id="about-h">About</h2>
+        <p>Campus Life Planner — a small accessible planner for students. Built with vanilla HTML/CSS/JS. Demonstrates responsive layout, a11y, regex validation & live search, and persistence.</p>
+        <p>Contact: <a href="https://github.com/your-github" target="_blank" rel="noopener">GitHub</a> • <a href="mailto:you@example.com">you@example.com</a></p>
+        <p><strong>Regex catalog (examples):</strong></p>
+        <ul>
+          <li>Title: no leading/trailing spaces — <code>^\S(?:.*\S)?$</code></li>
+          <li>Duration: numbers with optional 2 decimals — <code>^(0|[1-9]\d*)(\.\d{1,2})?$</code></li>
+          <li>Date: YYYY-MM-DD — <code>^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$</code></li>
+          <li>Tag: letters, spaces, hyphens — <code>^[A-Za-z]+(?:[ -][A-Za-z]+)*$</code></li>
+          <li>Advanced (duplicate word): <code>\b(\w+)\s+\1\b</code> — used to detect repeated words.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="dashboard" class="panel" aria-labelledby="dash-h">
+      <div class="container">
+        <h2 id="dash-h">Dashboard</h2>
+        <div id="stats" class="stats" aria-live="polite" role="status">
+          <!-- populated by JS -->
+        </div>
+        <div class="chart" id="trend" aria-hidden="false" title="last 7 days">
+          <!-- small bar chart -->
+        </div>
+
+        <div class="cap-control">
+          <label for="capInput">Weekly target (minutes)</label>
+          <input id="capInput" type="number" min="0" inputmode="numeric" required>
+          <button id="capSave">Save Target</button>
+          <div id="capMessage" role="status" aria-live="assertive" class="cap-message"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="records" class="panel" aria-labelledby="rec-h">
+      <div class="container">
+        <h2 id="rec-h">Records</h2>
+
+        <div class="controls">
+          <div class="search">
+            <label for="searchInput">Regex search</label>
+            <input id="searchInput" type="text" placeholder="type a pattern, e.g. ^@tag:lab or \b\d{2}:\d{2}\b" />
+            <label><input id="caseToggle" type="checkbox" /> Case-insensitive</label>
+            <div id="searchError" role="alert" aria-live="polite" class="error small"></div>
+          </div>
+
+          <div class="todo-section">
+  <h3>📋 To-Do List</h3>
+  <form id="todoForm" class="todo-form" novalidate>
+    <div class="todo-fields">
+      <input type="text" id="todoTitle" placeholder="Task title" required />
+      <input type="date" id="todoDue" required />
+      <input type="number" id="todoDuration" placeholder="Duration (min)" required />
+      <input type="text" id="todoTag" placeholder="Tag" required />
+      <button type="submit">Add</button>
+    </div>
+    <div id="todoError" class="error" aria-live="polite"></div>
+  </form>
+
+  <ul id="todoList" class="todo-list" aria-live="polite"></ul>
+</div>
+
+
+          <div class="import-export">
+            <button id="exportBtn">Export JSON</button>
+            <input id="importFile" type="file" accept=".json" aria-label="Import JSON file" />
+            <div id="importError" role="alert" aria-live="polite" class="error small"></div>
+          </div>
+        </div>
+
+        <div id="list" class="list" tabindex="0" aria-live="polite">
+          <!-- table/cards inserted here -->
+        </div>
+
+      </div>
+    </section>
+
+    <section id="add" class="panel" aria-labelledby="add-h">
+      <div class="container">
+        <h2 id="add-h">Add / Edit Record</h2>
+        <form id="recordForm" novalidate>
+          <input type="hidden" id="recordId" />
+          <div class="field">
+            <label for="title">Title</label>
+            <input id="title" name="title" required placeholder="e.g. Read Chapter 4" />
+            <div class="hint">No leading/trailing spaces. Double spaces collapsed automatically.</div>
+            <div class="error" id="titleError" aria-live="polite"></div>
+          </div>
+
+          <div class="field">
+            <label for="dueDate">Due date (YYYY-MM-DD)</label>
+            <input id="dueDate" name="dueDate" type="date" required />
+            <div class="error" id="dateError" aria-live="polite"></div>
+          </div>
+
+          <div class="field">
+            <label for="duration">Duration (minutes)</label>
+            <input id="duration" name="duration" inputmode="numeric" required placeholder="e.g. 90" />
+            <div class="hint">Can include decimals up to 2 places.</div>
+            <div class="error" id="durationError" aria-live="polite"></div>
+          </div>
+
+          <div class="field">
+            <label for="tag">Tag (letters, spaces, hyphens)</label>
+            <input id="tag" name="tag" required placeholder="e.g. Study-Group" />
+            <div class="error" id="tagError" aria-live="polite"></div>
+          </div>
+
+          <div class="field row">
+            <button type="submit" id="saveBtn" class="primary">Save</button>
+            <button type="button" id="resetBtn">Reset</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section id="settings" class="panel" aria-labelledby="settings-h">
+      <div class="container">
+        <h2 id="settings-h">Settings</h2>
+        <form id="settingsForm">
+          <div class="field">
+            <label for="units">Units</label>
+            <select id="units">
+              <option value="minutes">Minutes</option>
+              <option value="hours">Hours</option>
+            </select>
+            <div class="hint">Display durations as minutes or hours (conversion shown).</div>
+          </div>
+
+          <div class="field">
+            <label for="showAnimations">Animations</label>
+            <select id="showAnimations">
+              <option value="on">On</option>
+              <option value="reduced">Reduced</option>
+            </select>
+          </div>
+
+          <div class="field row">
+            <button id="saveSettings" type="button" class="primary">Save Settings</button>
+            <button id="resetSettings" type="button">Reset</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <p>&copy; Campus Life Planner — demo</p>
+    </div>
+  </footer>
+
+  <script type="module" src="scripts/main.js"></script>
+</body>
+</html>

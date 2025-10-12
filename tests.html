@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Tests - Campus Life Planner</title></head>
+<body>
+  <h1>Simple tests</h1>
+  <pre id="out"></pre>
+  <script type="module">
+    import { patterns, advanced, validateRecord } from './scripts/validators.js';
+    const out = document.getElementById('out');
+    let pass = 0, fail = 0;
+    function ok(v,msg){
+      if(v){pass++; out.textContent += 'PASS: '+msg+'\n'} else {fail++; out.textContent += 'FAIL: '+msg+'\n'}
+    }
+    ok(patterns.title.test('Hello'), 'title basic');
+    ok(!patterns.title.test(' Hello '), 'title disallows leading/trailing');
+    ok(patterns.duration.test('0'), 'duration zero');
+    ok(patterns.duration.test('12.50'), 'duration decimals');
+    ok(patterns.date.test('2025-10-01'), 'date valid');
+    ok(!patterns.date.test('2025-13-01'), 'date invalid month');
+    ok(patterns.tag.test('Study-Group'), 'tag valid');
+    ok(advanced.duplicateWord.test('the the'), 'duplicate word detected');
+
+    // validateRecord
+    const v = validateRecord({title:'Hello world', duration:'90', date:'2025-10-01', tag:'Study'});
+    ok(v.valid, 'validateRecord valid case');
+
+    out.textContent += `\nResult: ${pass} passed, ${fail} failed.`;
+  </script>
+</body>
+</html>
