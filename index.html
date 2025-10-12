@@ -39,24 +39,38 @@
       </div>
     </section>
 
-    <section id="dashboard" class="panel" aria-labelledby="dash-h">
-      <div class="container">
-        <h2 id="dash-h">Dashboard</h2>
-        <div id="stats" class="stats" aria-live="polite" role="status">
-          <!-- populated by JS -->
-        </div>
-        <div class="chart" id="trend" aria-hidden="false" title="last 7 days">
-          <!-- small bar chart -->
-        </div>
+  <section id="dashboard" class="panel" aria-labelledby="dash-h">
+  <div class="container">
+    <h2 id="dash-h">Dashboard</h2>
 
-        <div class="cap-control">
-          <label for="capInput">Weekly target (minutes)</label>
-          <input id="capInput" type="number" min="0" inputmode="numeric" required>
-          <button id="capSave">Save Target</button>
-          <div id="capMessage" role="status" aria-live="assertive" class="cap-message"></div>
-        </div>
-      </div>
-    </section>
+    <div class="dashboard-grid">
+      <button class="dash-card" style="--clr:#FEA38E" data-link="records.html">
+        <h3>📚 Records</h3>
+        <p>View all your saved activities</p>
+      </button>
+
+      <button class="dash-card" style="--clr:#FFDFC3" data-link="add.html">
+        <h3>➕ Add Task</h3>
+        <p>Quickly add a new record</p>
+      </button>
+
+      <button class="dash-card" style="--clr:#FBA2AB" data-link="settings.html">
+        <h3>⚙️ Settings</h3>
+        <p>Adjust your preferences</p>
+      </button>
+
+      <button class="dash-card" style="--clr:#F6E6D0" data-link="about.html">
+        <h3>ℹ️ About</h3>
+        <p>Learn more about this app</p>
+      </button>
+
+      <button class="dash-card" style="--clr:#F3B5A0" data-link="todo.html">
+        <h3>📝 To-Do List</h3>
+        <p>Track your daily goals</p>
+      </button>
+    </div>
+  </div>
+</section>
 
     <section id="records" class="panel" aria-labelledby="rec-h">
       <div class="container">

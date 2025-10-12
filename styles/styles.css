@@ -284,3 +284,55 @@ footer {
   margin-left: 80px;
   padding: 20px;
 }
+
+/* 🌸 Dashboard Grid Style */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 25px;
+  margin-top: 25px;
+}
+
+.dash-card {
+  background: color-mix(in srgb, var(--clr) 60%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: var(--clr);
+  border: none;
+  border-radius: 10px 60px 30px;
+  padding: 30px 20px;
+  text-align: left;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  color: #4a2b3a;
+  font-family: "Poppins", sans-serif;
+}
+
+.dash-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+.dash-card p {
+  font-size: 0.95rem;
+  color: #50323a;
+}
+
+.dash-card:hover,
+.dash-card:focus {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.25);
+  outline: none;
+}
+
+.dash-card:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 600px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
