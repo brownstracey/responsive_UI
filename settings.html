@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Settings</title>
-  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="stylesheet" href="styles/settings.css">
 </head>
 <body>
-  <h1>Campus Planner — Settings</h1>
+  <h1>Settings</h1>
 
   <div id="settingsContainer">
     <form id="settingsForm">
@@ -17,16 +17,6 @@
           <option value="light">Light</option>
           <option value="dark">Dark</option>
         </select>
-      </label>
-
-      <label>
-        Default Tag:
-        <input id="defaultTag" type="text" placeholder="e.g. hw">
-      </label>
-
-      <label>
-        Default Duration (minutes):
-        <input id="defaultDuration" type="number" min="0" placeholder="e.g. 45">
       </label>
 
       <button type="submit">Save Settings</button>
@@ -42,9 +32,22 @@
 
     <hr>
 
+    <div id="accountControls">
+      <h3>Account</h3>
+      <button id="editProfileBtn">Edit Profile</button>
+      <button id="logoutBtn">Logout</button>
+      <button id="deleteAccountBtn">Delete Account</button>
+    </div>
+
+    <hr>
+
+    <div id="supportControls">
+      <h3>Support</h3>
+      <button id="helpBtn">Help & FAQ</button>
+      <button id="privacyBtn">Privacy Policy</button>
+    </div>
   </div>
 
   <script src="scripts/settings.js"></script>
-  </script>
 </body>
 </html>

@@ -41,11 +41,17 @@ const LS_KEY = 'campusPlannerNotifs';
   }
 
   function deleteNotif(id) {
-    if (confirm('Delete this notification?')) {
-      notifs = notifs.filter(x => x.id !== id);
-      save(); render();
-    }
+  if (confirm("Are you sure you want to delete this notification?")) {
+    notifs = notifs.filter(n => n.id !== id);
+    updateLocalStorage();
+    renderUI();
   }
+}
+
+function announce(msg) {
+  const el = document.getElementById("status");
+  el.textContent = msg;
+}
 
   function markRead(id) {
     const n = notifs.find(x => x.id === id);
@@ -63,16 +69,3 @@ const LS_KEY = 'campusPlannerNotifs';
   $('clearBtn').onclick = clearForm;
 
   render();
-
-  // ⏰ Check every minute for upcoming notifications
-  setInterval(() => {
-    const now = new Date();
-    notifs.forEach(n => {
-      const time = new Date(n.time);
-      if (!n.read && time <= now) {
-        alert(`🔔 ${n.title}\n${n.msg}`);
-        n.read = true;
-      }
-    });
-    save(); render();
-  }, 60000);

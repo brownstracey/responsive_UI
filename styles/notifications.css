@@ -1,18 +1,6 @@
- :root {
-      --bg: #e6faff;
-      --card: #ffffff;
-      --cyan: #35c8d4;
-      --cyan-light: #b3f2f7;
-      --cyan-dark: #118a94;
-      --text: #033a3f;
-      --muted: #5a7779;
-      --radius: 12px;
-      --shadow: 0 4px 14px rgba(17, 138, 148, 0.15);
-    }
-
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: linear-gradient(180deg, var(--bg), #d4f3f7);
+      font-family: "Inter", Arial, sans-serif;
+      background: #264144;
       color: var(--text);
       margin: 0;
       padding: 20px;
@@ -25,9 +13,9 @@
     }
 
     form {
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      background: linear-gradient(to right, #264144, #18ffff, #bff098, #6fd6ff, #18ffff, #0097a7, #264144);
+      border-radius: 30px;
+      box-shadow: 0 0 20px #0097a7;
       padding: 16px;
       max-width: 600px;
       margin: 0 auto 20px;
@@ -41,16 +29,16 @@
 
     input[type="text"], input[type="datetime-local"] {
       width: 100%;
-      padding: 8px 10px;
+      padding: 10px 4px 10px;
       border: 1px solid var(--cyan-light);
-      border-radius: var(--radius);
-      background: #faffff;
+      border-radius: 30px;
+      background: #fafcfc;
       font-size: 14px;
       margin-top: 4px;
     }
 
     button {
-      background: var(--cyan);
+      background: #264144;
       color: white;
       border: none;
       border-radius: var(--radius);
@@ -61,18 +49,18 @@
     }
 
     button:hover {
-      background: var(--cyan-dark);
+      background: #0097a7;
       transform: translateY(-1px);
     }
 
     #clearBtn {
       background: #c8f4f8;
-      color: var(--text);
-      border: 1px solid var(--cyan-light);
+      color: black;
+      border: none;
     }
 
     #clearBtn:hover {
-      background: #a2e7ee;
+      background: #0097a7;
     }
 
     hr {
@@ -87,10 +75,10 @@
     }
 
     .notif-box {
-      background: var(--card);
-      border-left: 6px solid var(--cyan);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      background: #264144;
+      border-left: 10px solid #78f9f9;
+      border-radius: none;
+      box-shadow: 0 0 20px #18ffff;
       padding: 14px;
       margin-bottom: 12px;
       transition: transform 0.2s ease, box-shadow 0.2s ease;

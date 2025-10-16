@@ -4,23 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Records</title>
-  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="stylesheet" href="styles/records.css">
 </head>
 <body>
-  <h1>Campus Planner — Records</h1>
+  <h1>Your Records</h1>
 
   <form id="recordForm">
     <input type="hidden" id="recordId">
     <label>Title: <input id="title" type="text" required></label>
     <label>Due Date: <input id="dueDate" type="date"></label>
     <label>Duration: <input id="duration" type="text" placeholder="e.g. 45 or 01:30"></label>
-    <label>Tag: <input id="tag" type="text" placeholder="e.g. hw"></label>
+    <label>Tag: <input id="tag" type="text" placeholder="e.g. quiz"></label>
     <button type="submit">Save</button>
     <button type="button" id="clearBtn">Clear</button>
   </form>
 
   <hr>
-
 
    <div id="searchSection">
     <input id="searchBox" type="text" placeholder="Search or @tag:xxx">
@@ -30,6 +29,6 @@
   <button id="seedBtn">Add Samples</button>
 
    <div id="Container"></div>
-   <script type="module" src="scripts/notifications.js"></script>
+   <script type="module" src="scripts/records.js"></script>
 </body>
 </html>

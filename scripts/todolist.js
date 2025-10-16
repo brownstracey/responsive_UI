@@ -87,6 +87,14 @@
     render($('search').value, $('sort').value);
   }
 
+  function announce(msg) {
+  const el = document.getElementById("status");
+  el.textContent = msg;
+}
+// Example usage
+announce("Task saved successfully!");
+announce("Error: Please fill in all fields.");
+
   function updateTask(id, data) {
     const i = tasks.findIndex(x => x.id === id);
     if (i === -1) return;
