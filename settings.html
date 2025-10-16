@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings</title>
+  <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+  <h1>Campus Planner — Settings</h1>
+
+  <div id="settingsContainer">
+    <form id="settingsForm">
+      <label>
+        Theme:
+        <select id="theme">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+
+      <label>
+        Default Tag:
+        <input id="defaultTag" type="text" placeholder="e.g. hw">
+      </label>
+
+      <label>
+        Default Duration (minutes):
+        <input id="defaultDuration" type="number" min="0" placeholder="e.g. 45">
+      </label>
+
+      <button type="submit">Save Settings</button>
+      <button type="button" id="resetBtn">Reset to Defaults</button>
+    </form>
+
+    <hr>
+
+    <div id="dataControls">
+      <h3>Data Controls</h3>
+      <button id="clearRecordsBtn">Clear All Records</button>
+    </div>
+
+    <hr>
+
+  </div>
+
+  <script src="scripts/settings.js"></script>
+  </script>
+</body>
+</html>

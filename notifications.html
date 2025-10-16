@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notifications</title>
+  <style>
+    :root {
+      --bg: #e6faff;
+      --card: #ffffff;
+      --cyan: #35c8d4;
+      --cyan-light: #b3f2f7;
+      --cyan-dark: #118a94;
+      --text: #033a3f;
+      --muted: #5a7779;
+      --radius: 12px;
+      --shadow: 0 4px 14px rgba(17, 138, 148, 0.15);
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(180deg, var(--bg), #d4f3f7);
+      color: var(--text);
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--cyan-dark);
+      margin-bottom: 20px;
+    }
+
+    form {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      max-width: 600px;
+      margin: 0 auto 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    input[type="text"], input[type="datetime-local"] {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--cyan-light);
+      border-radius: var(--radius);
+      background: #faffff;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    button {
+      background: var(--cyan);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      padding: 8px 14px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+      font-weight: 600;
+    }
+
+    button:hover {
+      background: var(--cyan-dark);
+      transform: translateY(-1px);
+    }
+
+    #clearBtn {
+      background: #c8f4f8;
+      color: var(--text);
+      border: 1px solid var(--cyan-light);
+    }
+
+    #clearBtn:hover {
+      background: #a2e7ee;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #b9edf1;
+      margin: 20px 0;
+    }
+
+    #notifContainer {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .notif-box {
+      background: var(--card);
+      border-left: 6px solid var(--cyan);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+      margin-bottom: 12px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .notif-box:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(17, 138, 148, 0.25);
+    }
+
+    .notif-box.read {
+      border-left-color: #b2dede;
+      background: #f4fafa;
+      opacity: 0.7;
+    }
+
+    .notif-box strong {
+      color: var(--cyan-dark);
+      font-size: 1.05em;
+    }
+
+    .notif-box small {
+      display: block;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .notif-box em {
+      display: block;
+      font-size: 0.85em;
+      color: #056570;
+      margin-top: 5px;
+    }
+
+    .notif-box button {
+      margin-top: 8px;
+      margin-right: 6px;
+      padding: 6px 10px;
+      font-size: 13px;
+    }
+
+    .empty {
+      text-align: center;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔔 Notifications</h1>
+
+  <!-- ✏️ Add Notification -->
+  <form id="notifForm">
+    <input type="hidden" id="notifId">
+    <label>Title:
+      <input id="notifTitle" type="text" placeholder="e.g. Team Meeting" required>
+    </label>
+    <label>Message:
+      <input id="notifMsg" type="text" placeholder="e.g. Don’t forget your report!" required>
+    </label>
+    <label>Date & Time:
+      <input id="notifTime" type="datetime-local" required>
+    </label>
+    <button type="submit">Save</button>
+    <button type="button" id="clearBtn">Clear</button>
+  </form>
+
+  <hr>
+
+  <!-- 📬 Notification List -->
+  <div id="notifContainer"></div>
+
+  <script>
+  const LS_KEY = 'campusPlannerNotifs';
+  let notifs = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
+  const $ = id => document.getElementById(id);
+  const save = () => localStorage.setItem(LS_KEY, JSON.stringify(notifs));
+
+  function render() {
+    const container = $('notifContainer');
+    if (!notifs.length) {
+      container.innerHTML = '<p class="empty">No notifications yet 💭</p>';
+      return;
+    }
+    container.innerHTML = notifs.map(n => `
+      <div class="notif-box ${n.read ? 'read' : ''}">
+        <strong>${n.title}</strong>
+        <small>${n.msg}</small>
+        <em>⏰ ${new Date(n.time).toLocaleString()}</em>
+        <button onclick="markRead('${n.id}')">${n.read ? 'Unread' : 'Mark Read'}</button>
+        <button onclick="deleteNotif('${n.id}')">Delete</button>
+      </div>
+    `).join('');
+  }
+
+  function addOrUpdate(e) {
+    e.preventDefault();
+    const id = $('notifId').value;
+    const n = {
+      id: id || Date.now().toString(),
+      title: $('notifTitle').value.trim(),
+      msg: $('notifMsg').value.trim(),
+      time: $('notifTime').value,
+      read: false
+    };
+    if (!n.title || !n.msg || !n.time) return alert('Please fill all fields.');
+    if (id) {
+      const i = notifs.findIndex(x => x.id === id);
+      notifs[i] = n;
+    } else {
+      notifs.push(n);
+    }
+    save(); clearForm(); render();
+  }
+
+  function deleteNotif(id) {
+    if (confirm('Delete this notification?')) {
+      notifs = notifs.filter(x => x.id !== id);
+      save(); render();
+    }
+  }
+
+  function markRead(id) {
+    const n = notifs.find(x => x.id === id);
+    if (!n) return;
+    n.read = !n.read;
+    save(); render();
+  }
+
+  function clearForm() {
+    $('notifForm').reset();
+    $('notifId').value = '';
+  }
+
+  $('notifForm').onsubmit = addOrUpdate;
+  $('clearBtn').onclick = clearForm;
+
+  render();
+
+  // ⏰ Check every minute for upcoming notifications
+  setInterval(() => {
+    const now = new Date();
+    notifs.forEach(n => {
+      const time = new Date(n.time);
+      if (!n.read && time <= now) {
+        alert(`🔔 ${n.title}\n${n.msg}`);
+        n.read = true;
+      }
+    });
+    save(); render();
+  }, 60000);
+  </script>
+</body>
+</html>

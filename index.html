@@ -1,198 +1,75 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Campus Life Planner</title>
-  <link rel="stylesheet" href="styles/styles.css" />
+  <link rel="stylesheet" href="styles/styles.css">
 </head>
-<body class="theme">
-  <header> <h1>Campus Life Planner</h1>
-    <p>Small planner for students</p>
-     <nav> 
-     <nav aria-label="Primary navigation"> 
-      <ul class="nav"> 
-        <li><a href="#about">About</a></li> 
-        <li><a href="#dashboard">Dashboard</a></li> 
-        <li><a href="#records">Records</a></li> 
-        <li><a href="#add">Add</a></li> 
-        <li><a href="#settings">Settings</a></li> 
-      </ul> 
-    </nav> 
-  </div> 
-</header>
+<body>
 
-  <main id="main" tabindex="-1">
-     <section id="about" class="panel" aria-labelledby="about-h">
-      <div class="container">
-        <h2 id="about-h">About</h2>
-        <p>Campus Life Planner — a small accessible planner for students. Built with vanilla HTML/CSS/JS. Demonstrates responsive layout, a11y, regex validation & live search, and persistence.</p>
-        <p>Contact: <a href="https://github.com/your-github" target="_blank" rel="noopener">GitHub</a> • <a href="mailto:you@example.com">you@example.com</a></p>
-        <p><strong>Regex catalog (examples):</strong></p>
-        <ul>
-          <li>Title: no leading/trailing spaces — <code>^\S(?:.*\S)?$</code></li>
-          <li>Duration: numbers with optional 2 decimals — <code>^(0|[1-9]\d*)(\.\d{1,2})?$</code></li>
-          <li>Date: YYYY-MM-DD — <code>^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$</code></li>
-          <li>Tag: letters, spaces, hyphens — <code>^[A-Za-z]+(?:[ -][A-Za-z]+)*$</code></li>
-          <li>Advanced (duplicate word): <code>\b(\w+)\s+\1\b</code> — used to detect repeated words.</li>
-        </ul>
-      </div>
+  <header>
+    <h1>Campus Life Planner</h1>
+    <p>A small planner for students :)</p>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#dashboard">Dashboard</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- About section -->
+    <section id="about">
+      <h2>About</h2>
+      <p>This app is a small planner for students. It’s made with just HTML, CSS and JavaScript (no frameworks!).</p>
+      <p>It’s supposed to show off things like responsive design, validation and regex (whatever that is lol).</p>
+      <p>Contact me on <a href="https://github.com/your-github" target="_blank">GitHub</a> or send me an email at <a href="mailto:you@example.com">you@example.com</a>.</p>
+
+      <h3>Regex Examples:</h3>
+      <ul>
+        <li>Title: <code>^\S(?:.*\S)?$</code></li>
+        <li>Duration: <code>^(0|[1-9]\d*)(\.\d{1,2})?$</code></li>
+        <li>Date: <code>^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$</code></li>
+        <li>Tag: <code>^[A-Za-z]+(?:[ -][A-Za-z]+)*$</code></li>
+        <li>Duplicate words: <code>\b(\w+)\s+\1\b</code></li>
+      </ul>
     </section>
 
-  <section id="dashboard" class="panel" aria-labelledby="dash-h">
-  <div class="container">
-    <h2 id="dash-h">Dashboard</h2>
-
-    <div class="dashboard-grid">
-      <button class="dash-card" style="--clr:#FEA38E" data-link="records.html">
-        <h3>📚 Records</h3>
-        <p>View all your saved activities</p>
-      </button>
-
-      <button class="dash-card" style="--clr:#FFDFC3" data-link="add.html">
-        <h3>➕ Add Task</h3>
-        <p>Quickly add a new record</p>
-      </button>
-
-      <button class="dash-card" style="--clr:#FBA2AB" data-link="settings.html">
-        <h3>⚙️ Settings</h3>
-        <p>Adjust your preferences</p>
-      </button>
-
-      <button class="dash-card" style="--clr:#F6E6D0" data-link="about.html">
-        <h3>ℹ️ About</h3>
-        <p>Learn more about this app</p>
-      </button>
-
-      <button class="dash-card" style="--clr:#F3B5A0" data-link="todo.html">
-        <h3>📝 To-Do List</h3>
-        <p>Track your daily goals</p>
-      </button>
-    </div>
-  </div>
-</section>
-
-    <section id="records" class="panel" aria-labelledby="rec-h">
-      <div class="container">
-        <h2 id="rec-h">Records</h2>
-
-        <div class="controls">
-          <div class="search">
-            <label for="searchInput">Regex search</label>
-            <input id="searchInput" type="text" placeholder="type a pattern, e.g. ^@tag:lab or \b\d{2}:\d{2}\b" />
-            <label><input id="caseToggle" type="checkbox" /> Case-insensitive</label>
-            <div id="searchError" role="alert" aria-live="polite" class="error small"></div>
-          </div>
-
-          <div class="todo-section">
-  <h3>📋 To-Do List</h3>
-  <form id="todoForm" class="todo-form" novalidate>
-    <div class="todo-fields">
-      <input type="text" id="todoTitle" placeholder="Task title" required />
-      <input type="date" id="todoDue" required />
-      <input type="number" id="todoDuration" placeholder="Duration (min)" required />
-      <input type="text" id="todoTag" placeholder="Tag" required />
-      <button type="submit">Add</button>
-    </div>
-    <div id="todoError" class="error" aria-live="polite"></div>
-  </form>
-
-  <ul id="todoList" class="todo-list" aria-live="polite"></ul>
-</div>
-
-
-          <div class="import-export">
-            <button id="exportBtn">Export JSON</button>
-            <input id="importFile" type="file" accept=".json" aria-label="Import JSON file" />
-            <div id="importError" role="alert" aria-live="polite" class="error small"></div>
-          </div>
-        </div>
-
-        <div id="list" class="list" tabindex="0" aria-live="polite">
-          <!-- table/cards inserted here -->
-        </div>
-
+    <!-- Dashboard -->
+    <section id="dashboard">
+      <h2>Dashboard</h2>
+      <div class="dashboard-grid">
+        <button style="background:#FEA38E">
+          <a href="records.html">
+          <h3>Records</h3>
+          <p>See all saved things</p>
+        </button>
+        <button style="background:#FBA2AB">
+          <a href="settings.html">
+          <h3>Settings</h3>
+          <p>Adjust stuff</p>
+        </button>
+        <button style="background:#F6E6D0">
+          <a href="notifications.html">
+          <h3>Notifications</h3>
+          <p>More info</p>
+        </button>
+        <button style="background:#F3B5A0">
+          <a href="todolist.html">
+          <h3>To-Do List</h3>
+          <p>Track goals</p>
+        </button>
       </div>
     </section>
+  </main>
 
-    <section id="add" class="panel" aria-labelledby="add-h">
-      <div class="container">
-        <h2 id="add-h">Add / Edit Record</h2>
-        <form id="recordForm" novalidate>
-          <input type="hidden" id="recordId" />
-          <div class="field">
-            <label for="title">Title</label>
-            <input id="title" name="title" required placeholder="e.g. Read Chapter 4" />
-            <div class="hint">No leading/trailing spaces. Double spaces collapsed automatically.</div>
-            <div class="error" id="titleError" aria-live="polite"></div>
-          </div>
-
-          <div class="field">
-            <label for="dueDate">Due date (YYYY-MM-DD)</label>
-            <input id="dueDate" name="dueDate" type="date" required />
-            <div class="error" id="dateError" aria-live="polite"></div>
-          </div>
-
-          <div class="field">
-            <label for="duration">Duration (minutes)</label>
-            <input id="duration" name="duration" inputmode="numeric" required placeholder="e.g. 90" />
-            <div class="hint">Can include decimals up to 2 places.</div>
-            <div class="error" id="durationError" aria-live="polite"></div>
-          </div>
-
-          <div class="field">
-            <label for="tag">Tag (letters, spaces, hyphens)</label>
-            <input id="tag" name="tag" required placeholder="e.g. Study-Group" />
-            <div class="error" id="tagError" aria-live="polite"></div>
-          </div>
-
-          <div class="field row">
-            <button type="submit" id="saveBtn" class="primary">Save</button>
-            <button type="button" id="resetBtn">Reset</button>
-          </div>
-        </form>
-      </div>
-    </section>
-
-    <section id="settings" class="panel" aria-labelledby="settings-h">
-      <div class="container">
-        <h2 id="settings-h">Settings</h2>
-        <form id="settingsForm">
-          <div class="field">
-            <label for="units">Units</label>
-            <select id="units">
-              <option value="minutes">Minutes</option>
-              <option value="hours">Hours</option>
-            </select>
-            <div class="hint">Display durations as minutes or hours (conversion shown).</div>
-          </div>
-
-          <div class="field">
-            <label for="showAnimations">Animations</label>
-            <select id="showAnimations">
-              <option value="on">On</option>
-              <option value="reduced">Reduced</option>
-            </select>
-          </div>
-
-          <div class="field row">
-            <button id="saveSettings" type="button" class="primary">Save Settings</button>
-            <button id="resetSettings" type="button">Reset</button>
-          </div>
-        </form>
-      </div>
-    </section>
-
-  </div>
-</main>
-
-
-  <footer class="site-footer" role="contentinfo">
-    <div class="container">
-      <p>&copy; Campus Life Planner — demo</p>
-    </div>
+  <footer>
+    <p>&copy; Campus Life Planner (demo)</p>
   </footer>
 
-  <script type="module" src="scripts/main.js"></script>
+  <script src="scripts/main.js"></script>
 </body>
 </html>

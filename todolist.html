@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Lovely To-Do — Campus Planner</title>
+<style>
+  /* Pretty feminine pastel theme */
+  :root{
+    --bg:#fff6fb;
+    --card:#fff;
+    --muted:#7b6b7b;
+    --accent:#ff8fb1;       /* pink */
+    --accent-2:#ffd6ec;     /* pale pink */
+    --accent-3:#b8e0d2;     /* mint */
+    --accent-4:#f8c9ff;     /* lilac */
+    --success:#6ee7b7;
+    --danger:#ff6b6b;
+    --radius:12px;
+    --glass: rgba(255,255,255,0.7);
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(600px 200px at 10% 10%, rgba(255, 210, 235, 0.35), transparent),
+      radial-gradient(600px 200px at 90% 90%, rgba(215, 235, 255, 0.22), transparent),
+      var(--bg);
+    color:#331a2e;
+    padding:24px;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  header{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+  header .logo{
+    width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent-4));
+    display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:20px;box-shadow:0 6px 18px rgba(51,26,46,0.12)
+  }
+  h1{margin:0;font-size:20px}
+  p.lead{margin:4px 0 0 0;color:var(--muted);font-size:13px}
+
+  .wrap{max-width:960px;margin:16px auto;display:grid;grid-template-columns:360px 1fr;gap:18px;align-items:start}
+  @media (max-width:880px){ .wrap{grid-template-columns:1fr;padding:0 12px} }
+
+  .panel{
+    background:var(--card);
+    border-radius:var(--radius);
+    padding:14px;
+    box-shadow:0 6px 20px rgba(51,26,46,0.06);
+    border:1px solid rgba(51,26,46,0.04);
+  }
+
+  /* Left: add task + controls */
+  .form-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+  label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+  input[type="text"], input[type="date"], select, textarea{
+    width:100%;padding:10px;border-radius:10px;border:1px solid rgba(51,26,46,0.06);
+    background:transparent;font-size:14px;color:inherit;
+  }
+  textarea{min-height:70px;resize:vertical}
+
+  .btn{
+    border:0;padding:9px 12px;border-radius:10px;background:linear-gradient(90deg,var(--accent),#ff6f9b);
+    color:white;font-weight:600;cursor:pointer;
+  }
+  .btn.ghost{background:transparent;border:1px solid rgba(51,26,46,0.06);color:var(--muted)}
+  .small{padding:6px 8px;font-size:13px;border-radius:8px}
+
+  /* Right: tasks list */
+  .controls{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+  .search{flex:1;min-width:160px}
+  .filters{display:flex;gap:8px;align-items:center}
+
+  .list{display:grid;gap:10px}
+  .task{
+    display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:12px;border:1px solid rgba(51,26,46,0.04);
+    background:linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,250,251,0.6));
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .task:hover{transform:translateY(-4px);box-shadow:0 8px 26px rgba(51,26,46,0.06)}
+  .checkbox{width:36px;height:36px;border-radius:10px;background:var(--accent-2);display:flex;align-items:center;justify-content:center;font-weight:700;color:#7a334d}
+  .task .body{flex:1}
+  .title{font-weight:700;margin:0 0 6px 0}
+  .meta{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:13px}
+  .tag{background:linear-gradient(90deg,var(--accent-2),var(--accent-3));padding:4px 8px;border-radius:999px;font-size:12px;color:#2b3940}
+  .priority{padding:4px 8px;border-radius:8px;font-weight:700;font-size:12px}
+  .priority.low{background:#eaf9f1;color:#0b6b48}
+  .priority.med{background:#fff4e6;color:#7a4a00}
+  .priority.high{background:#ffeef6;color:#a11e59}
+
+  .actions{display:flex;gap:8px;align-items:center}
+  .actions button{background:transparent;border:0;color:var(--muted);cursor:pointer;padding:6px;border-radius:8px}
+  .completed .title{text-decoration:line-through;color:gray;opacity:0.8}
+
+  .empty{padding:28px;text-align:center;color:var(--muted);border-radius:10px;background:linear-gradient(90deg, rgba(255,255,255,0.6), rgba(255,245,250,0.6));}
+
+  footer.app-footer{margin-top:12px;color:var(--muted);font-size:13px;text-align:center}
+  /* small helpers */
+  .pill{display:inline-block;padding:6px 8px;border-radius:999px;background:rgba(0,0,0,0.04);font-size:13px}
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo">♡</div>
+    <div>
+      <h1>Lovely To-Do</h1>
+      <p class="lead">A pretty & feminine task list — quick, calm, charming. 🌸</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Left column: add task & quick settings -->
+    <section class="panel" aria-labelledby="addTaskTitle">
+      <h2 id="addTaskTitle" style="margin-top:0">Add a task</h2>
+
+      <form id="taskForm">
+        <input type="hidden" id="taskId">
+
+        <label>Title
+          <input id="title" type="text" placeholder="Finish essay, call Mum, practice piano..." required>
+        </label>
+
+        <label>Details (optional)
+          <textarea id="notes" placeholder="Optional notes or location"></textarea>
+        </label>
+
+        <div class="form-row">
+          <div style="flex:1">
+            <label>Due date
+              <input id="due" type="date">
+            </label>
+          </div>
+          <div style="width:120px">
+            <label>Priority
+              <select id="priority">
+                <option value="low">Low</option>
+                <option value="med" selected>Medium</option>
+                <option value="high">High</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <label>Tag
+          <input id="tag" type="text" placeholder="e.g. hw, club, personal">
+        </label>
+
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <button class="btn" type="submit">Add task</button>
+          <button type="button" class="btn ghost" id="clearBtn">Clear</button>
+          <button type="button" class="btn ghost" id="seedBtn" title="Add a few samples">Seed</button>
+        </div>
+      </form>
+
+      <hr>
+
+      <div>
+        <strong>Quick tips</strong>
+        <p style="margin:6px 0 0 0;color:var(--muted)">Use tags to group tasks (type a single word). Click the checkbox to toggle complete. Use search to filter by text or <code>@tag:xyz</code> to filter by tag.</p>
+      </div>
+    </section>
+
+    <!-- Right column: search + tasks -->
+    <section class="panel" aria-labelledby="tasksTitle">
+      <h2 id="tasksTitle" style="margin-top:0">Your tasks</h2>
+
+      <div class="controls" role="search">
+        <input id="search" class="search small" type="text" placeholder="Search tasks or @tag:hw">
+        <button class="small" id="searchBtn">Search</button>
+
+        <div class="filters" style="margin-left:auto">
+          <select id="sort">
+            <option value="default">Sort: Default</option>
+            <option value="dueAsc">Due ↑</option>
+            <option value="dueDesc">Due ↓</option>
+            <option value="priority">Priority</option>
+          </select>
+          <button class="small" id="clearCompleted">Clear completed</button>
+        </div>
+      </div>
+
+      <div id="list" class="list" aria-live="polite"></div>
+
+      <footer class="app-footer">Made with ♥ for campus life</footer>
+    </section>
+  </main>
+
+  <script src="scripts/main.js"></script>
+</body>
+</html>
