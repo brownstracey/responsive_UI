@@ -28,23 +28,29 @@ Every action updates in real time and is not affected by reloading your browser.
 ```
 responsive_UI/
 ├── scripts/
-│   ├── app.py                # Flask backend
-│   ├── requirements.txt      # Backend dependencies
-│   └── ...
+│   ├──  notifications.js
+|   ├──  records.js     
+│   ├──  settings.js
+│   ├──  todolist.js       
+│   ├──      
+│   └── storage.js
+|
 ├── styles/
-│   ├── styles.css           # Frontend HTML
+│   ├── styles.css           
 │   ├── notifications.css
 │   ├── settings.css
-│   ├── todolist.css              # Frontend JavaScript
+│   ├── todolist.css              
 │   └──records.css
+|
 ├── images/
-│   └── demo.png        # Database data dump
+│   └── demo.png
+|        
 ├── index.html/
 ├── notifications.html
 ├── records.html
 ├── settings.html
 ├── todolist.html
-└── README.md                 # This file
+└── README.md                 
 ```
 
 ---
