@@ -3,95 +3,15 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Lovely To-Do — Campus Planner</title>
+<title>To do list</title>
 <link rel="stylesheet" href="styles/todolist.css" />
 </head>
 <body>
   <header>
     <div class="logo">♡</div>
     <div>
-      <h1>Lovely To-Do</h1>
-      <p class="lead">A pretty & feminine task list — quick, calm, charming. 🌸</p>
+      <h1>Keep track of your day-to-day activiies</h1>
     </div>
   </header>
-
-  <main class="wrap">
-    <!-- Left column: add task & quick settings -->
-    <section class="panel" aria-labelledby="addTaskTitle">
-      <h2 id="addTaskTitle" style="margin-top:0">Add a task</h2>
-
-      <form id="taskForm">
-        <input type="hidden" id="taskId">
-
-        <label>Title
-          <input id="title" type="text" placeholder="Finish essay, call Mum, practice piano..." required>
-        </label>
-
-        <label>Details (optional)
-          <textarea id="notes" placeholder="Optional notes or location"></textarea>
-        </label>
-
-        <div class="form-row">
-          <div style="flex:1">
-            <label>Due date
-              <input id="due" type="date">
-            </label>
-          </div>
-          <div style="width:120px">
-            <label>Priority
-              <select id="priority">
-                <option value="low">Low</option>
-                <option value="med" selected>Medium</option>
-                <option value="high">High</option>
-              </select>
-            </label>
-          </div>
-        </div>
-
-        <label>Tag
-          <input id="tag" type="text" placeholder="e.g. hw, club, personal">
-        </label>
-
-        <div style="display:flex;gap:8px;margin-top:10px">
-          <button class="btn" type="submit">Add task</button>
-          <button type="button" class="btn ghost" id="clearBtn">Clear</button>
-          <button type="button" class="btn ghost" id="seedBtn" title="Add a few samples">Seed</button>
-        </div>
-      </form>
-
-      <hr>
-
-      <div>
-        <strong>Quick tips</strong>
-        <p style="margin:6px 0 0 0;color:var(--muted)">Use tags to group tasks (type a single word). Click the checkbox to toggle complete. Use search to filter by text or <code>@tag:xyz</code> to filter by tag.</p>
-      </div>
-    </section>
-
-    <!-- Right column: search + tasks -->
-    <section class="panel" aria-labelledby="tasksTitle">
-      <h2 id="tasksTitle" style="margin-top:0">Your tasks</h2>
-
-      <div class="controls" role="search">
-        <input id="search" class="search small" type="text" placeholder="Search tasks or @tag:hw">
-        <button class="small" id="searchBtn">Search</button>
-
-        <div class="filters" style="margin-left:auto">
-          <select id="sort">
-            <option value="default">Sort: Default</option>
-            <option value="dueAsc">Due ↑</option>
-            <option value="dueDesc">Due ↓</option>
-            <option value="priority">Priority</option>
-          </select>
-          <button class="small" id="clearCompleted">Clear completed</button>
-        </div>
-      </div>
-
-      <div id="list" class="list" aria-live="polite"></div>
-
-      <footer class="app-footer">Made with ♥ for campus life</footer>
-    </section>
-  </main>
-
-  <script src="scripts/main.js"></script>
 </body>
 </html>
